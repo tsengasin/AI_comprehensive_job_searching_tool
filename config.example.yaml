@@ -1,0 +1,33 @@
+# Copy this file to config.yaml and edit it. config.yaml is git-ignored.
+# Do NOT put API keys here. Keys go in .env (copy .env.example).
+
+search:
+  # One search per line. Use the job titles you actually want.
+  queries:
+    - "CRM manager"
+    - "marketing operations"
+    - "lifecycle marketing"
+  location: "Singapore"          # e.g. "Dublin, Ireland", "Hong Kong", "London, United Kingdom", "Remote"
+  sources: [jooble, serpapi]     # remove one if you only have one key
+  language: en                   # language of Google Jobs results (SerpApi)
+  results_per_query: 40          # Jooble results per query
+
+scoring:
+  alert_min_fit: 85      # your personal "worth applying" bar (Fit %)
+  ats_target: 80         # recruiter / ATS bar for your CV wording (ATS Match %)
+  tracker_min_fit: 70    # jobs at or above this go into data/jobs.xlsx for review
+  max_jobs_per_run: 60   # limits AI usage per day
+  max_description_chars: 6000
+
+profile:
+  cv_file: my-data/master-cv.md              # .md, .txt or .docx
+  skill_profile_file: my-data/skill-profile.md
+
+notify:
+  channels: [telegram]   # or [terminal] to just print the digest
+
+storage:
+  keep_raw_days: 3       # raw API results older than this are deleted
+
+engine:
+  claude_command: claude # full path if your scheduler cannot find it, e.g. /Users/you/.nvm/versions/node/v22.0.0/bin/claude

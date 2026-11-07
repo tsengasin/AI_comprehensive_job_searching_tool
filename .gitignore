@@ -1,0 +1,24 @@
+# --- Secrets: never commit ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# --- Your personal data: never commit ---
+config.yaml
+my-data/*
+!my-data/README.md
+data/
+*.log
+.serpapi_run_state.json
+
+# --- Office lock files, OS and Python noise ---
+~$*
+.DS_Store
+__MACOSX/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
