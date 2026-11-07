@@ -12,5 +12,5 @@ Typical contents, created with the skills:
 | `tailored/<company>-<role>.md` | The `cv-builder` skill (tailor mode) |
 | `interview-prep/<company>/...` | The `interview-coach` skill |
 
-Before you share anything from here with anyone (including a consultant), remove phone numbers,
+Before you share anything from here with anyone (a friend, mentor or career coach), remove phone numbers,
 home address and anything you would not post publicly.

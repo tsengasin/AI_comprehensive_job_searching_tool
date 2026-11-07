@@ -86,11 +86,6 @@ python -m job_alert doctor     # check setup without showing keys
 | `examples/demo-persona/` | A fictional job seeker's CV, profile and sample scoring |
 | `my-data/` | **Your** private files (git-ignored) |
 
-## Want a human in the loop?
-
-The toolkit is free. If you'd like a CV review, a mock interview for a real interview, or help
-setting this up, I offer paid 1:1 online sessions → [CONSULTING.md](CONSULTING.md)
-
 ## Contributing
 
 Issues and PRs welcome, especially new official job sources, translations, and interview

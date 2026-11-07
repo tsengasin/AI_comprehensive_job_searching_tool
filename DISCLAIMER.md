@@ -14,5 +14,3 @@ This toolkit is provided free, **as is**, under the MIT License, without warrant
   permits, contracts or salary negotiation, consult a qualified professional.
 - **Your data.** The toolkit stores data only on your computer. Keeping that computer, your keys
   and your files secure is your responsibility.
-- Paid consultations (see CONSULTING.md) are a separate service with their own terms and are not
-  required to use this toolkit.

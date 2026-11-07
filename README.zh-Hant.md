@@ -42,10 +42,6 @@
 
 詳見 [SECURITY.md](SECURITY.md)。**切勿把 API key 貼到任何 AI 對話、GitHub issue 或截圖中。**
 
-## 一對一網上諮詢
-
-工具永久免費。如需真人協助（履歷審閱、模擬面試、安裝設定、求職策略），可預約付費網上諮詢：[CONSULTING.md](CONSULTING.md)
-
 ## 授權
 
 [MIT](LICENSE)。分數只是估算，並非保證，詳見[免責聲明](DISCLAIMER.md)。

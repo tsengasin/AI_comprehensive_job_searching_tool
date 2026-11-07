@@ -26,7 +26,7 @@
 - Keep your computer and Claude Code login secure.
 - Do not paste keys into chats, issues or screenshots. If you do, regenerate the key.
 - Review anything the AI writes in your CV before sending it.
-- When you share files with anyone (including a paid consultation), remove details you would not
+- When you share files with anyone (a friend, mentor or career coach), remove details you would not
   post publicly.
 
 ## Reporting a vulnerability

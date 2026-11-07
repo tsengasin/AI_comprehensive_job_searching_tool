@@ -43,5 +43,5 @@ See `examples/demo-persona/skill-profile.md` for a finished example.
 
 - Never add a skill the user did not confirm.
 - Keep sensitive personal factors minimal and phrased neutrally (e.g. "Needs visa sponsorship
-  outside Hong Kong"). The file is private, but it may later be shared with a consultant.
+  outside Hong Kong"). The file is private, but it may later be shared with a mentor or career coach.
 - Update the profile whenever the user learns something new or a job score feels wrong.
