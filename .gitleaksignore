@@ -1,0 +1,4 @@
+# Known false positives: a fake test value ("sk-testkey...") used in an older commit of
+# tests/test_job_alert.py. It was never a real key; the test now uses an obviously fake value.
+de76cce9728cfd9ce2dff1d4786548c009cfa443:tests/test_job_alert.py:generic-api-key:120
+de76cce9728cfd9ce2dff1d4786548c009cfa443:tests/test_job_alert.py:generic-api-key:137
