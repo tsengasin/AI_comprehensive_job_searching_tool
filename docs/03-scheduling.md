@@ -1,8 +1,8 @@
 # Run it automatically every morning
 
 The computer must be on (or asleep, on macOS) at the scheduled time. The job runs
-`scripts/run_daily.sh`, which writes to `data/daily.log`. If a run fails (for example Claude
-Code is logged out), you get a Telegram message saying why.
+`scripts/run_daily.sh`, which writes to `data/daily.log`. If a run fails (for example your AI
+tool is logged out), you get a Telegram message saying why.
 
 ## macOS (launchd)
 
@@ -25,8 +25,8 @@ launchctl load ~/Library/LaunchAgents/com.jobsearch.daily.plist
 launchctl start com.jobsearch.daily
 ```
 
-If the log says `Could not find 'claude'`, run `which claude` and put that full path in
-`config.yaml` → `engine.claude_command`.
+If the log says `Could not find 'codex'` (or `claude`), run `which codex` and put that full
+path in `config.yaml` → `engine.command`.
 
 ## Linux (cron)
 
@@ -51,5 +51,5 @@ Add this line (8:00 every day; replace the path):
 
 ## Don't want a schedule?
 
-Just run `python -m job_alert run` when you want, or paste a JD into Claude Code and ask
+Just run `python -m job_alert run` when you want, or paste a JD into your AI and ask
 "Should I apply?" (the `job-match-alert` skill scores it on the spot).

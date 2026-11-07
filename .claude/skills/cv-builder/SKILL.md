@@ -43,7 +43,7 @@ no information only in headers/footers, dates in a consistent format, file as .d
 ## Mode 3: Tailor to a job description
 
 1. Read the master CV, the skill profile and the JD.
-2. **ATS Match % before** using Part A of `.claude/skills/job-match-alert/scoring-rubric.md`.
+2. **ATS Match % before** using Part A of `the job-match-alert skill's `scoring-rubric.md` (`.agents/skills/job-match-alert/scoring-rubric.md`)`.
 3. **Fit % check** using Part B. If Fit is below 70, say so honestly and ask whether to continue.
 4. Tailor:
    - Mirror the JD's exact terms where the user genuinely has the skill (`*` terms in the rubric).

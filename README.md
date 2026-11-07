@@ -1,12 +1,12 @@
 # AI Comprehensive Job Searching Tool
 
 **Free AI skills for job seekers: build and tailor your CV, prepare for interviews, and get a
-daily alert only for jobs you genuinely fit. Runs on your own computer with your own AI agent.
-No server, no sign-up, no data collection.**
+daily alert only for jobs you genuinely fit. Works with ChatGPT / Codex, Claude, or any
+OpenAI-compatible model. Runs on your own computer. No server, no sign-up, no data collection.**
 
 [繁體中文說明](README.zh-Hant.md)
 
-<p align="center"><img src="docs/images/how-it-works.png" alt="How to use it in 6 steps: 1 Download, 2 Set up in Claude Code, 3 Build an honest skill profile, 4 Daily alerts (Fit 85% + ATS 80%) to Telegram, 5 Tailor CV for strong-fit jobs, 6 Interview prep. Steps 4 to 6 repeat with weekly insights." width="560"></p>
+<p align="center"><img src="docs/images/how-it-works.png" alt="How to use it in 6 steps: 1 Download, 2 Set up in Codex or Claude Code, 3 Build an honest skill profile, 4 Daily alerts (Fit 85% + ATS 80%) to Telegram, 5 Tailor CV for strong-fit jobs, 6 Interview prep. Steps 4 to 6 repeat with weekly insights." width="560"></p>
 
 ---
 
@@ -40,25 +40,26 @@ that led to interviews. → [Full method](docs/04-scoring-method.md) ·
 
 ## Get started
 
-1. Download this repo (Code → Download ZIP), or fork it and **make your fork private**.
-2. Open the folder in [Claude Code](https://claude.com/claude-code) and type:
-   **"Help me set up the job search tool."**
+Pick the path that matches the AI you already use:
 
-Prefer reading? → [Quick start, step by step](docs/01-quick-start.md) (about 45 minutes).
+| You use... | Do this | What you get |
+|---|---|---|
+| **ChatGPT in the browser only** | Upload the skill files to a ChatGPT Project ([10-minute guide](docs/06-use-in-chatgpt.md)) | CV, skill profile, interview prep, score any job you paste |
+| **Codex** (ChatGPT plan) or **Claude Code** | Download this repo, open the folder, type **"Help me set up the job search tool."** | Everything, including the daily alert |
+| **An API key** (OpenAI, Azure OpenAI, DeepSeek, Qwen, OpenRouter) or **Ollama** | Same as above with any agent, and `engine.type: api` | Everything, including the daily alert |
 
-You only need skills 1 and 2? No keys required: just open the folder in your AI agent and ask.
-The daily alert needs free keys from Jooble and/or SerpApi and a Telegram bot
-([how](docs/02-api-keys.md)).
+Download: **Code → Download ZIP** (or fork it and **make your fork private**).
+Step by step: [Quick start](docs/01-quick-start.md) · Which AI? [Choose your AI](docs/05-choose-your-ai.md)
 
-Works with Claude Code out of the box. Other agents (Codex, Cursor, Gemini CLI...) can follow
-[`AGENTS.md`](AGENTS.md); the daily scorer currently uses the Claude Code CLI.
+The CV and interview skills need no keys. The daily alert also needs free keys from Jooble
+and/or SerpApi and a Telegram bot ([how](docs/02-api-keys.md)).
 
 ## Your data and keys are safe by design
 
 - Runs **100% on your computer**. The author never receives your CV, data or keys.
 - Keys live in `.env`; CV and results in `my-data/` and `data/`. All git-ignored.
-- The daily AI scorer runs sandboxed with **no shell and no internet access**, so a malicious job
-  ad can't trick it into leaking anything.
+- The daily AI scorer runs sandboxed with **no internet access**, so a malicious job ad can't
+  trick it into leaking anything.
 - Official APIs only. No LinkedIn scraping.
 
 → [SECURITY.md](SECURITY.md)
@@ -66,7 +67,7 @@ Works with Claude Code out of the box. Other agents (Codex, Cursor, Gemini CLI..
 ## How the daily alert works
 
 ```
- Jooble / SerpApi ──► fetch & de-duplicate ──► AI scores (sandboxed: Read/Write only)
+ Jooble / SerpApi ──► fetch & de-duplicate ──► AI scores (Codex / Claude / API, sandboxed)
                                                       │
  Telegram digest ◄── tracker data/jobs.xlsx ◄── Python validates scores & sets verdicts
 ```
@@ -81,7 +82,7 @@ python -m job_alert doctor     # check setup without showing keys
 
 | Path | What |
 |---|---|
-| `.claude/skills/` | The five skills (plain Markdown, easy to read and adapt) |
+| `.agents/skills/` | The five skills (plain Markdown, [Agent Skills](https://agentskills.io) format); `.claude/skills/` is a copy for Claude Code |
 | `job_alert/` | Daily alert pipeline (Python) |
 | `docs/` | Quick start, keys, scheduling, scoring method |
 | `templates/` | Skill profile, CV and mock-interview log templates |

@@ -26,6 +26,17 @@ class Thresholds:
 
 
 @dataclass
+class EngineConfig:
+    """Which AI scores the jobs. See docs/05-choose-your-ai.md."""
+    type: str = "codex"                 # codex | claude | api
+    command: str = ""                   # path to the codex / claude CLI (default: on PATH)
+    base_url: str = "https://api.openai.com/v1"  # api only: any OpenAI-compatible endpoint
+    model: str = ""                     # api only, e.g. gpt-4.1-mini, deepseek-chat, qwen-plus
+    batch_size: int = 10                # api only: jobs per request
+    key_header: str = "Authorization"   # api only: "api-key" for Azure OpenAI
+
+
+@dataclass
 class Config:
     queries: list[str]
     location: str
@@ -40,7 +51,7 @@ class Config:
     notify: list[str] = field(default_factory=lambda: ["telegram"])
     cv_file: str = "my-data/master-cv.md"
     profile_file: str = "my-data/skill-profile.md"
-    claude_command: str = "claude"
+    engine: EngineConfig = field(default_factory=EngineConfig)
 
 
 def load_config(path: Path | None = None) -> Config:
@@ -77,7 +88,23 @@ def load_config(path: Path | None = None) -> Config:
         notify=list(raw.get("notify", {}).get("channels", ["telegram"])),
         cv_file=str(profile.get("cv_file", "my-data/master-cv.md")),
         profile_file=str(profile.get("skill_profile_file", "my-data/skill-profile.md")),
-        claude_command=str(raw.get("engine", {}).get("claude_command", os.environ.get("CLAUDE_BIN", "claude"))),
+        engine=_engine(raw.get("engine", {})),
+    )
+
+
+def _engine(raw: dict) -> EngineConfig:
+    engine_type = str(raw.get("type", "codex")).lower()
+    if engine_type not in ("codex", "claude", "api"):
+        raise ConfigError("engine.type in config.yaml must be codex, claude or api.")
+    # Older configs used engine.claude_command
+    command = raw.get("command") or raw.get("claude_command") or ""
+    return EngineConfig(
+        type=engine_type,
+        command=str(command or ("claude" if engine_type == "claude" else "codex")),
+        base_url=str(raw.get("base_url", "https://api.openai.com/v1")).rstrip("/"),
+        model=str(raw.get("model", "")),
+        batch_size=max(1, int(raw.get("batch_size", 10))),
+        key_header=str(raw.get("key_header", "Authorization")),
     )
 
 

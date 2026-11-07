@@ -29,5 +29,12 @@ notify:
 storage:
   keep_raw_days: 3       # raw API results older than this are deleted
 
+# Which AI scores your jobs every day. See docs/05-choose-your-ai.md.
 engine:
-  claude_command: claude # full path if your scheduler cannot find it, e.g. /Users/you/.nvm/versions/node/v22.0.0/bin/claude
+  type: codex            # codex (ChatGPT plan) | claude (Claude plan) | api (any OpenAI-compatible API)
+  command: ""            # optional full path to the codex / claude program if the scheduler cannot find it
+  # Only for type: api. The key goes in .env as LLM_API_KEY.
+  base_url: https://api.openai.com/v1
+  model: ""              # e.g. gpt-4.1-mini, deepseek-chat, qwen-plus, llama3.1 (Ollama)
+  batch_size: 10
+  key_header: Authorization   # use api-key for Azure OpenAI

@@ -30,9 +30,10 @@ The pipeline is Python (`python -m job_alert run`), not you:
 fetch (Jooble, SerpApi) → de-duplicate → **you score in a sandbox** → Python validates, writes
 `data/jobs.xlsx`, and sends the Telegram digest.
 
-When you are invoked inside the sandbox (`data/work/<date>/`), you will have only Read and Write.
-Follow the task prompt: read the rubric, CV, profile and `jobs.json`; write `scored.json`. Do not
-try to fetch URLs, run commands, or read files outside that folder.
+The scoring engine is set in `config.yaml` → `engine.type`: `codex`, `claude` or `api`
+(docs/05-choose-your-ai.md). When you are invoked inside the sandbox (`data/work/<date>/`),
+follow the task prompt: read the rubric, CV, profile and `jobs.json`; write `scored.json`. Do not
+fetch URLs, run other commands, or read files outside that folder.
 
 When the user asks for help with the pipeline, use `docs/` and the `job-search-setup` skill.
 Never display `.env`; use `python -m job_alert doctor`.

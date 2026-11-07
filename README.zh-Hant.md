@@ -1,10 +1,10 @@
 # AI 全方位求職工具
 
-**免費的 AI 求職技能包：製作及度身修改履歷、準備面試，每天只通知你真正適合的職位。全部在你自己的電腦、用你自己的 AI agent 運行，不設伺服器、不用註冊、不收集任何資料。**
+**免費的 AI 求職技能包：製作及度身修改履歷、準備面試，每天只通知你真正適合的職位。支援 ChatGPT／Codex、Claude 及任何 OpenAI 相容模型（如 DeepSeek、Qwen、Azure OpenAI、本機 Ollama）。全部在你自己的電腦運行，不設伺服器、不用註冊、不收集任何資料。**
 
 [English README](README.md)
 
-<p align="center"><img src="docs/images/how-it-works.png" alt="六個步驟：下載、在 Claude Code 設定、建立技能檔案、每日職位通知、度身修改履歷、面試準備" width="560"></p>
+<p align="center"><img src="docs/images/how-it-works.png" alt="六個步驟：下載、在 Codex 或 Claude Code 設定、建立技能檔案、每日職位通知、度身修改履歷、面試準備" width="560"></p>
 
 ## 功能
 
@@ -30,16 +30,24 @@
 
 ## 開始使用
 
-1. 下載此 repo（Code → Download ZIP）；如果 fork，請把你的 fork **設為 Private**。
-2. 用 [Claude Code](https://claude.com/claude-code) 打開資料夾，輸入：**「Help me set up the job search tool.」**（用中文亦可）
+按你平時用的 AI 選擇：
 
-詳細步驟見 [docs/01-quick-start.md](docs/01-quick-start.md)。只用履歷及面試功能的話，不需要任何 API key。
+| 你用… | 做法 | 可用功能 |
+|---|---|---|
+| **只用 ChatGPT 網頁版** | 把技能檔案上載到 ChatGPT Project（[10 分鐘教學](docs/06-use-in-chatgpt.md)） | 履歷、技能檔案、面試準備、為你貼上的職位評分 |
+| **Codex**（ChatGPT 付費計劃）或 **Claude Code** | 下載此 repo，打開資料夾，輸入 **「Help me set up the job search tool.」**（用中文亦可） | 全部功能，包括每日職位通知 |
+| **API key**（Azure OpenAI、DeepSeek、Qwen、OpenRouter 等）或 **Ollama** | 同上，並在 config 設定 `engine.type: api` | 全部功能，包括每日職位通知 |
+
+下載：**Code → Download ZIP**（如 fork，請**設為 Private**）。詳細步驟見 [docs/01-quick-start.md](docs/01-quick-start.md)；選擇 AI 見 [docs/05-choose-your-ai.md](docs/05-choose-your-ai.md)。只用履歷及面試功能的話，不需要任何 API key。
+
+> **注意：** OpenAI 及 Anthropic 官方均未支援香港，請以各供應商的支援地區及條款為準。香港用戶可考慮 Azure OpenAI（合資格機構）、DeepSeek、阿里雲 Qwen，或在電腦本機運行的免費 Ollama。
 
 ## 安全與私隱
 
 - **100% 在你的電腦運行**，作者不會收到你的履歷、資料或任何 key。
 - API key 只存於 `.env`；履歷及結果存於 `my-data/` 和 `data/`，全部已被 git 忽略。
-- 每日評分的 AI 在沙盒內運行，**沒有 shell、沒有上網權限**，惡意職位廣告無法誘使它洩露資料。
+- 每日評分的 AI 在沙盒內運行，**沒有上網權限**，惡意職位廣告無法誘使它洩露資料。
+- 評分時，你的履歷及職位內容會傳送給你選用的 AI 供應商（不會傳給作者）。如不想資料離開電腦，可用 Ollama。
 - 只使用官方 API，不爬 LinkedIn。
 
 詳見 [SECURITY.md](SECURITY.md)。**切勿把 API key 貼到任何 AI 對話、GitHub issue 或截圖中。**

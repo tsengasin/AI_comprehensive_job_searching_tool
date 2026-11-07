@@ -1,11 +1,13 @@
 # Quick start (about 45 minutes, no coding needed)
 
-You need: a computer (macOS, Windows or Linux), and a paid Claude plan with
-[Claude Code](https://claude.com/claude-code). Other AI coding agents can use the skills too; see
-`AGENTS.md`.
+You need: a computer (macOS, Windows or Linux) and one AI tool:
+**Codex** (with a ChatGPT plan), **Claude Code** (with a Claude plan), or an **API key** from any
+OpenAI-compatible provider. Not sure which? See [05-choose-your-ai.md](05-choose-your-ai.md).
+Only use ChatGPT in the browser? See [06-use-in-chatgpt.md](06-use-in-chatgpt.md) instead.
 
-> **Easiest path:** do Step 1, open Claude Code in the folder, and type
+> **Easiest path:** do Step 1, open the folder in Codex or Claude Code, and type
 > **"Help me set up the job search tool."** The `job-search-setup` skill walks you through the rest.
+> "Your AI" below means whichever of these you use.
 
 ## Step 1: Get the toolkit
 
@@ -36,18 +38,19 @@ pip install -r requirements.txt
 
 ## Step 3: Your CV
 
-Put your CV in `my-data/` as `master-cv.md` (or `master-cv.docx`). No CV yet? Open Claude Code
-in the folder and say: *"Use cv-builder to build my master CV from scratch."*
+Put your CV in `my-data/` as `master-cv.md` (or `master-cv.docx`). No CV yet? Ask your AI
+in the folder: *"Use cv-builder to build my master CV from scratch."*
 
 ## Step 4: Your skill profile (the important part)
 
-In Claude Code: *"Run skill-profile-builder."* It asks up to 8 questions and writes
+Ask your AI: *"Run skill-profile-builder."* It asks up to 8 questions and writes
 `my-data/skill-profile.md`: your real strengths, transferable skills, honest gaps, and personal
 factors (languages, visa, location). This is what stops the scores from being inflated.
 
 ## Step 5: Search settings
 
-Copy `config.example.yaml` to `config.yaml` and edit the job titles and location.
+Copy `config.example.yaml` to `config.yaml` and edit the job titles and location. Set
+`engine.type` to `codex`, `claude` or `api` ([05-choose-your-ai.md](05-choose-your-ai.md)).
 Leave the default bars unless you have a reason: **Fit 85** (honest fit) and **ATS 80**
 (CV wording). See [04-scoring-method.md](04-scoring-method.md).
 
@@ -80,7 +83,7 @@ See [03-scheduling.md](03-scheduling.md).
 
 ## What next
 
-| Situation | Say to Claude Code |
+| Situation | Say to your AI |
 |---|---|
 | 🟡 "Tailor CV first" alert | "Tailor my CV for this job: [paste JD]" |
 | Got an interview | "Run interview-coach for [company, role, date]" |

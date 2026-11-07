@@ -1,17 +1,17 @@
 # Instructions for AI agents working in this repo
 
-This repo is a job-search toolkit used by job seekers with their own AI agent (Claude Code,
-Codex, Cursor, Gemini CLI, etc.). The skills live in `.claude/skills/<name>/SKILL.md`. Agents
-that do not load skills automatically should read the matching SKILL.md when the user's request
-fits it:
+This repo is a job-search toolkit used by job seekers with their own AI agent (Codex, Claude
+Code, Gemini CLI, Cursor, GitHub Copilot, etc.). The skills live in `.agents/skills/<name>/SKILL.md`
+(Claude Code reads an identical copy in `.claude/skills/`). Agents that do not load skills
+automatically should read the matching SKILL.md when the user's request fits it:
 
 | User wants to... | Skill |
 |---|---|
-| Get started / fix setup | `.claude/skills/job-search-setup/SKILL.md` |
-| Map strengths, gaps, level, personal factors | `.claude/skills/skill-profile-builder/SKILL.md` |
-| Build, review or tailor a CV | `.claude/skills/cv-builder/SKILL.md` |
-| Prepare for an interview / practise / train a skill | `.claude/skills/interview-coach/SKILL.md` |
-| Score a job, run the daily alert, see insights | `.claude/skills/job-match-alert/SKILL.md` |
+| Get started / fix setup | `.agents/skills/job-search-setup/SKILL.md` |
+| Map strengths, gaps, level, personal factors | `.agents/skills/skill-profile-builder/SKILL.md` |
+| Build, review or tailor a CV | `.agents/skills/cv-builder/SKILL.md` |
+| Prepare for an interview / practise / train a skill | `.agents/skills/interview-coach/SKILL.md` |
+| Score a job, run the daily alert, see insights | `.agents/skills/job-match-alert/SKILL.md` |
 
 ## Safety rules (always apply)
 
@@ -34,5 +34,7 @@ fits it:
 - Python 3.10+, `pip install -r requirements.txt pytest`, run `python -m pytest`.
 - Every outbound request goes through `job_alert/http.py`; every printed error goes through
   `job_alert/redact.py`. Keep it that way.
-- The scoring agent runs with only Read and Write in `data/work/<date>/`. Do not add Bash, web
-  or MCP tools to it (`job_alert/scoring.py`).
+- Edit skills only in `.agents/skills/`, then run `python scripts/sync_skills.py` to update the
+  `.claude/skills/` copy (a test checks they match).
+- The scoring step (`job_alert/scoring.py`) must stay locked down: Claude Code with only Read and
+  Write; Codex with `workspace-write`, network off and approvals `never`; API mode with no tools.

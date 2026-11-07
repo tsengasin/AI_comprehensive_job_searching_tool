@@ -87,3 +87,62 @@ def test_tracker_roundtrip(tmp_path):
     store.append_to_tracker([{"Job Title": "B", "Fit %": 72}], path)
     rows = store.read_tracker(path)
     assert [r["Job Title"] for r in rows] == ["A", "B"]
+
+
+# --- AI engines -------------------------------------------------------------
+
+from pathlib import Path
+
+from job_alert.config import Config, EngineConfig, ROOT
+
+
+def _config(**engine):
+    return Config(queries=["q"], location="x", engine=EngineConfig(**engine))
+
+
+def test_codex_command_is_sandboxed(tmp_path):
+    cmd = scoring.codex_command(_config(type="codex", command="codex"), tmp_path)
+    joined = " ".join(cmd)
+    assert cmd[:2] == ["codex", "exec"]
+    assert "--sandbox workspace-write" in joined
+    assert "sandbox_workspace_write.network_access=false" in joined
+    assert 'approval_policy="never"' in joined
+    assert "dangerously" not in joined and "danger-full-access" not in joined
+
+
+def test_claude_command_has_no_shell():
+    cmd = scoring.claude_command(_config(type="claude", command="claude"))
+    assert cmd[cmd.index("--tools") + 1] == "Read,Write"
+    assert "bypassPermissions" not in cmd and "--strict-mcp-config" in cmd
+
+
+def test_api_engine_batches_and_writes_scores(tmp_path, monkeypatch):
+    monkeypatch.setenv("LLM_API_KEY", "sk-testkey1234567890abcd")
+    for name in ("scoring-rubric.md", "cv.md", "skill-profile.md"):
+        (tmp_path / name).write_text("x")
+    jobs = [{"job_id": f"j{i}"} for i in range(5)]
+    (tmp_path / "jobs.json").write_text(json.dumps(jobs))
+    calls = []
+
+    def fake_request(method, url, **kwargs):
+        calls.append((url, kwargs["headers"]))
+        batch = json.loads(kwargs["json"]["messages"][1]["content"].split("```json\n")[1].split("\n```")[0])
+        body = json.dumps({"results": [{"job_id": j["job_id"], "fit_score": 90, "ats_score": 80} for j in batch]})
+        return {"choices": [{"message": {"content": "```json\n" + body + "\n```"}}]}
+
+    monkeypatch.setattr("job_alert.http.request_json", fake_request)
+    cfg = _config(type="api", base_url="https://api.example.com/v1", model="m", batch_size=2, key_header="api-key")
+    scoring.run_api(tmp_path, cfg)
+    assert len(calls) == 3 and calls[0][0] == "https://api.example.com/v1/chat/completions"
+    assert calls[0][1] == {"api-key": "sk-testkey1234567890abcd"}
+    assert len(json.loads((tmp_path / "scored.json").read_text())["results"]) == 5
+
+
+def test_redacts_openai_style_keys():
+    assert "abcdef" not in redact("error with sk-abcdefghijklmnopqrstuvwxyz")
+
+
+def test_claude_skills_copy_matches_agents_skills():
+    src, dst = ROOT / ".agents" / "skills", ROOT / ".claude" / "skills"
+    files = lambda d: {p.relative_to(d): p.read_bytes() for p in d.rglob("*") if p.is_file()}
+    assert files(src) == files(dst), "Run: python scripts/sync_skills.py"

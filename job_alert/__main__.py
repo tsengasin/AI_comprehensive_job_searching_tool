@@ -152,6 +152,13 @@ def cmd_doctor(config) -> None:
     for name, var in [("jooble", "JOOBLE_APP_KEY"), ("serpapi", "SERPAPI_KEY")]:
         if name in config.sources:
             checks.append((f"{var} in .env", bool(os.environ.get(var))))
+    import shutil
+    if config.engine.type == "api":
+        checks.append(("LLM_API_KEY in .env (engine: api)", bool(os.environ.get("LLM_API_KEY"))))
+        checks.append(("engine.model set in config.yaml", bool(config.engine.model)))
+    else:
+        checks.append((f"'{config.engine.command}' installed (engine: {config.engine.type})",
+                       bool(shutil.which(config.engine.command))))
     if "telegram" in config.notify:
         checks.append(("TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in .env", notify.telegram_configured()))
     for name, ok in checks:

@@ -11,7 +11,10 @@ import os
 import re
 
 # Names of environment variables whose values must never appear in output.
-SECRET_ENV_VARS = ("JOOBLE_APP_KEY", "SERPAPI_KEY", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")
+SECRET_ENV_VARS = (
+    "JOOBLE_APP_KEY", "SERPAPI_KEY", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID",
+    "LLM_API_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY",
+)
 
 _PATTERNS = [
     # ?api_key=XXXX or &api_key=XXXX (SerpApi and many others)
@@ -20,6 +23,8 @@ _PATTERNS = [
     (re.compile(r"/bot\d+:[A-Za-z0-9_-]+"), "/bot[REDACTED]"),
     # Jooble: jooble.org/api/<key>
     (re.compile(r"(jooble\.org/api/)[^/\s\"']+"), r"\1[REDACTED]"),
+    # Common API key formats (OpenAI-style sk-..., etc.)
+    (re.compile(r"\bsk-[A-Za-z0-9_-]{16,}"), "sk-[REDACTED]"),
     # Authorization headers
     (re.compile(r"(?i)(authorization['\"]?\s*[:=]\s*['\"]?(?:bearer\s+)?)[^\s'\"]+"), r"\1[REDACTED]"),
 ]

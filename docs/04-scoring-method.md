@@ -42,7 +42,7 @@ the core of the job, and apply the personal factors in your skill profile.
 | **Fit 70–84** | 🟠 Stretch: tracked, not alerted | 🟠 Stretch |
 | **Fit < 70** | ⚪ Skip (not tracked) | ⚪ Skip |
 
-Full rubric used by the AI: [`.claude/skills/job-match-alert/scoring-rubric.md`](../.claude/skills/job-match-alert/scoring-rubric.md).
+Full rubric used by the AI: [`.agents/skills/job-match-alert/scoring-rubric.md`](../.agents/skills/job-match-alert/scoring-rubric.md).
 Worked example: [`examples/demo-persona/sample-scoring.md`](../examples/demo-persona/sample-scoring.md).
 
 ## Limits, honestly

@@ -20,8 +20,11 @@ each step worked before moving on, and explain in plain language. Reply in the u
 
 ## Steps
 
-1. **Check tools.** Python 3.10+ (`python3 --version`) and Claude Code (`claude --version`).
-   If missing, point to docs/01-quick-start.md.
+1. **Check tools.** Python 3.10+ (`python3 --version`) and the AI tool they use. Ask which one,
+   and help them pick per docs/05-choose-your-ai.md: Codex (`codex --version`, ChatGPT plan),
+   Claude Code (`claude --version`), or an API key from any OpenAI-compatible provider. If they
+   only use ChatGPT in the browser, explain the daily alert needs one of the three, and that the
+   CV and interview skills also work in a ChatGPT Project (docs/06-use-in-chatgpt.md).
 2. **Install packages.** `python3 -m venv .venv`, activate it, `pip install -r requirements.txt`.
 3. **CV.** Ask whether they have a CV.
    - Yes: ask them to save it as `my-data/master-cv.md` (or `.docx`). Offer the `cv-builder` skill
@@ -29,7 +32,8 @@ each step worked before moving on, and explain in plain language. Reply in the u
    - No: start the `cv-builder` skill in "build from scratch" mode.
 4. **Skill profile.** Run the `skill-profile-builder` skill. This is what makes the scores honest.
 5. **Config.** Copy `config.example.yaml` to `config.yaml`. Help them choose 3–6 search queries
-   (real job titles from postings they like) and a location. Explain the two bars:
+   (real job titles from postings they like) and a location. Set `engine.type` to the AI tool
+   from step 1. Explain the two bars:
    `alert_min_fit` (personal fit, default 85) and `ats_target` (CV wording, default 80).
 6. **Keys.** Copy `.env.example` to `.env`. Walk them through docs/02-api-keys.md for Jooble,
    SerpApi and Telegram. They paste values into `.env` themselves.
@@ -49,5 +53,7 @@ each step worked before moving on, and explain in plain language. Reply in the u
 | `JOOBLE_APP_KEY is not set` | Step 6; check there are no spaces around `=` |
 | `HTTP 401/403 from jooble.org` or `serpapi.com` | Key is wrong or not yet activated |
 | `HTTP 429` | Free quota used up; reduce queries or wait |
-| `Claude Code is logged out` | Run `claude`, then `/login` |
-| `Could not find 'claude'` | Set `engine.claude_command` to the full path (`which claude`) |
+| `Your AI tool is logged out` | Codex: `codex login`. Claude Code: run `claude`, then `/login` |
+| `Could not find 'codex'` (or `claude`) | Set `engine.command` to the full path (`which codex`; Windows: `where codex`) |
+| `LLM_API_KEY is not set` | engine `api` needs a key in `.env`; see docs/05-choose-your-ai.md |
+| `AI API error: HTTP 401` | API key wrong or out of credit |

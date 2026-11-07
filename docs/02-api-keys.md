@@ -38,7 +38,8 @@ so check your plan's quota and keep the query list short.
 
 Prefer no phone alerts? Set `notify.channels: [terminal]` in `config.yaml`.
 
-## Claude Code
+## Your AI
 
-The daily scoring uses your own Claude Code login (`claude` → `/login`). No Anthropic API key is
-stored in this project.
+Codex and Claude Code use your own login (`codex login`, or `claude` → `/login`): no key is
+stored in this project. API mode needs `LLM_API_KEY` in `.env`; see
+[05-choose-your-ai.md](05-choose-your-ai.md).

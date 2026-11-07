@@ -13,7 +13,7 @@
 <circle cx='804.1' cy='489.5' r='22' fill='#ffffff' fill-opacity='0.95'/>
 <text x='804.1' y='497.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='24' font-weight='800' fill='#22577a'>2</text>
 <text x='804.1' y='545.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='27' font-weight='700' fill='#ffffff'>Set up</text>
-<text x='804.1' y='577.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>Open in Claude Code:</text>
+<text x='804.1' y='577.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>Codex / Claude Code:</text>
 <text x='804.1' y='602.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>“Help me set up”</text>
 <path d='M959.9,708.8 A420,420 0 0 1 757.6,1059.3 L638.4,862.5 A190,190 0 0 0 730.0,704.0 Z' fill='#1f6f8b'/>
 <circle cx='804.1' cy='794.5' r='22' fill='#ffffff' fill-opacity='0.95'/>
@@ -51,7 +51,7 @@
 <text x='540' y='780' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#4a5568'>Steps 4–6 repeat</text>
 <text x='540' y='805' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#4a5568'>with weekly insights</text>
 <rect x='48.0' y='1190' width='316' height='52' rx='26' fill='#ffffff' stroke='#cbd5e1' stroke-width='2'/>
-<text x='206' y='1224' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='21' font-weight='600' fill='#1d3557'>Runs on your computer</text>
+<text x='206' y='1224' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='21' font-weight='600' fill='#1d3557'>ChatGPT · Codex · Claude</text>
 <rect x='382.0' y='1190' width='316' height='52' rx='26' fill='#ffffff' stroke='#cbd5e1' stroke-width='2'/>
 <text x='540' y='1224' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='21' font-weight='600' fill='#1d3557'>Keys stay in your .env</text>
 <rect x='716.0' y='1190' width='316' height='52' rx='26' fill='#ffffff' stroke='#cbd5e1' stroke-width='2'/>
