@@ -1,0 +1,60 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350' viewBox='0 0 1080 1350'>
+<rect width='1080' height='1350' fill='#f6f8fb'/>
+<text x='540' y='110' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='54' font-weight='800' fill='#14213d'>AI Job Search Toolkit</text>
+<text x='540' y='165' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='28' font-weight='500' fill='#4a5568'>How to use it, in 6 steps</text>
+<defs><marker id='ah' viewBox='0 0 10 10' refX='5' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L10,5 L0,10 z' fill='#94a3b8'/></marker></defs>
+<path d='M337.7,332.0 A420,420 0 0 1 742.3,332.0 L631.5,533.5 A190,190 0 0 0 448.5,533.5 Z' fill='#1d3557'/>
+<circle cx='540.0' cy='337.0' r='22' fill='#ffffff' fill-opacity='0.95'/>
+<text x='540.0' y='345.0' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='24' font-weight='800' fill='#1d3557'>1</text>
+<text x='540.0' y='393.0' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='27' font-weight='700' fill='#ffffff'>Download</text>
+<text x='540.0' y='425.0' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>Download ZIP</text>
+<text x='540.0' y='450.0' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>or private fork</text>
+<path d='M757.6,340.7 A420,420 0 0 1 959.9,691.2 L730.0,696.0 A190,190 0 0 0 638.4,537.5 Z' fill='#22577a'/>
+<circle cx='804.1' cy='489.5' r='22' fill='#ffffff' fill-opacity='0.95'/>
+<text x='804.1' y='497.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='24' font-weight='800' fill='#22577a'>2</text>
+<text x='804.1' y='545.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='27' font-weight='700' fill='#ffffff'>Set up</text>
+<text x='804.1' y='577.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>Open in Claude Code:</text>
+<text x='804.1' y='602.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>“Help me set up”</text>
+<path d='M959.9,708.8 A420,420 0 0 1 757.6,1059.3 L638.4,862.5 A190,190 0 0 0 730.0,704.0 Z' fill='#1f6f8b'/>
+<circle cx='804.1' cy='794.5' r='22' fill='#ffffff' fill-opacity='0.95'/>
+<text x='804.1' y='802.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='24' font-weight='800' fill='#1f6f8b'>3</text>
+<text x='804.1' y='850.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='27' font-weight='700' fill='#ffffff'>Know yourself</text>
+<text x='804.1' y='882.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>Honest strengths,</text>
+<text x='804.1' y='907.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>gaps &amp; background</text>
+<path d='M742.3,1068.0 A420,420 0 0 1 337.7,1068.0 L448.5,866.5 A190,190 0 0 0 631.5,866.5 Z' fill='#1b7f79'/>
+<circle cx='540.0' cy='947.0' r='22' fill='#ffffff' fill-opacity='0.95'/>
+<text x='540.0' y='955.0' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='24' font-weight='800' fill='#1b7f79'>4</text>
+<text x='540.0' y='1003.0' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='27' font-weight='700' fill='#ffffff'>Daily alerts</text>
+<text x='540.0' y='1035.0' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>Fit 85% + ATS 80%</text>
+<text x='540.0' y='1060.0' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>sent to Telegram</text>
+<path d='M322.4,1059.3 A420,420 0 0 1 120.1,708.8 L350.0,704.0 A190,190 0 0 0 441.6,862.5 Z' fill='#2a7a55'/>
+<circle cx='275.9' cy='794.5' r='22' fill='#ffffff' fill-opacity='0.95'/>
+<text x='275.9' y='802.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='24' font-weight='800' fill='#2a7a55'>5</text>
+<text x='275.9' y='850.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='27' font-weight='700' fill='#ffffff'>Tailor CV</text>
+<text x='275.9' y='882.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>True rewording for</text>
+<text x='275.9' y='907.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>strong-fit jobs</text>
+<path d='M120.1,691.2 A420,420 0 0 1 322.4,340.7 L441.6,537.5 A190,190 0 0 0 350.0,696.0 Z' fill='#5b4a8b'/>
+<circle cx='275.9' cy='489.5' r='22' fill='#ffffff' fill-opacity='0.95'/>
+<text x='275.9' y='497.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='24' font-weight='800' fill='#5b4a8b'>6</text>
+<text x='275.9' y='545.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='27' font-weight='700' fill='#ffffff'>Interview prep</text>
+<text x='275.9' y='577.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>Mock interviews &amp;</text>
+<text x='275.9' y='602.5' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#e8eef5'>skill-gap plan</text>
+<path d='M678.4,273.9 A448,448 0 0 1 839.8,367.1' fill='none' stroke='#94a3b8' stroke-width='4' marker-end='url(#ah)'/>
+<path d='M978.2,606.9 A448,448 0 0 1 978.2,793.1' fill='none' stroke='#94a3b8' stroke-width='4' marker-end='url(#ah)'/>
+<path d='M839.8,1032.9 A448,448 0 0 1 678.4,1126.1' fill='none' stroke='#94a3b8' stroke-width='4' marker-end='url(#ah)'/>
+<path d='M401.6,1126.1 A448,448 0 0 1 240.2,1032.9' fill='none' stroke='#94a3b8' stroke-width='4' marker-end='url(#ah)'/>
+<path d='M101.8,793.1 A448,448 0 0 1 101.8,606.9' fill='none' stroke='#94a3b8' stroke-width='4' marker-end='url(#ah)'/>
+<circle cx='540' cy='700' r='176' fill='#ffffff'/>
+<text x='540' y='652' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='34' font-weight='800' fill='#14213d'>Free</text>
+<text x='540' y='692' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='34' font-weight='800' fill='#14213d'>Private</text>
+<text x='540' y='732' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='34' font-weight='800' fill='#14213d'>Open source</text>
+<text x='540' y='780' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#4a5568'>Steps 4–6 repeat</text>
+<text x='540' y='805' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#4a5568'>with weekly insights</text>
+<rect x='48.0' y='1190' width='316' height='52' rx='26' fill='#ffffff' stroke='#cbd5e1' stroke-width='2'/>
+<text x='206' y='1224' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='21' font-weight='600' fill='#1d3557'>Runs on your computer</text>
+<rect x='382.0' y='1190' width='316' height='52' rx='26' fill='#ffffff' stroke='#cbd5e1' stroke-width='2'/>
+<text x='540' y='1224' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='21' font-weight='600' fill='#1d3557'>Keys stay in your .env</text>
+<rect x='716.0' y='1190' width='316' height='52' rx='26' fill='#ffffff' stroke='#cbd5e1' stroke-width='2'/>
+<text x='874' y='1224' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='21' font-weight='600' fill='#1d3557'>Never invents experience</text>
+<text x='540' y='1295' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='22' font-weight='600' fill='#4a5568'>github.com/tsengasin/AI_comprehensive_job_searching_tool</text>
+</svg>

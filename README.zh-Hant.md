@@ -4,6 +4,8 @@
 
 [English README](README.md)
 
+<p align="center"><img src="docs/images/how-it-works.png" alt="六個步驟：下載、在 Claude Code 設定、建立技能檔案、每日職位通知、度身修改履歷、面試準備" width="560"></p>
+
 ## 功能
 
 | 技能 | 你可以說 | 你會得到 |

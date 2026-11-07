@@ -6,6 +6,8 @@ No server, no sign-up, no data collection.**
 
 [繁體中文說明](README.zh-Hant.md)
 
+<p align="center"><img src="docs/images/how-it-works.png" alt="How to use it in 6 steps: 1 Download, 2 Set up in Claude Code, 3 Build an honest skill profile, 4 Daily alerts (Fit 85% + ATS 80%) to Telegram, 5 Tailor CV for strong-fit jobs, 6 Interview prep. Steps 4 to 6 repeat with weekly insights." width="560"></p>
+
 ---
 
 ## What it does
