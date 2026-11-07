@@ -47,6 +47,21 @@ employers keep asking for. When the user asks for a deeper read, open `data/jobs
 - Salary ranges seen for strong-fit roles
 - One CV change and one learning goal for next week
 
+## Mode D: Progress report (the improvement loop)
+
+`python -m job_alert progress` builds `data/progress-report.html` and a short summary: interview
+rate (rolling 4 weeks), applications, average ATS % on strong-fit jobs, effort (tailored CVs,
+mock interviews) and next week's focus. It is sent automatically on `reports.progress_day`.
+The user keeps the **Status** column in `data/jobs.xlsx` up to date (New, Applied, Interview,
+Offer, Rejected, No reply, Not applying); the daily run records when each status changed.
+
+When the user asks how they are doing, or sounds discouraged:
+- Read the summary and lead with what improved (often CV wording or effort before interviews).
+- Turn the top focus item into one concrete action for this week (with `cv-builder` or
+  `interview-coach`).
+- Be honest about small numbers: under ~10 applications, rates are mostly noise.
+- Never invent progress. If nothing improved, say so kindly and pick one small next step.
+
 ## Calibration check
 
 If more than ~20% of jobs clear Fit 85, or the user says scores feel too high or too low,

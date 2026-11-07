@@ -89,3 +89,5 @@ See [03-scheduling.md](03-scheduling.md).
 | Got an interview | "Run interview-coach for [company, role, date]" |
 | End of the week | "Show my weekly insights" (or `python -m job_alert insights`) |
 | Scores feel wrong | "Review my skill profile; my scores feel too high" |
+| After applying / hearing back | Update **Status** in `data/jobs.xlsx` ([why](07-progress-loop.md)) |
+| Feeling stuck | "How am I progressing?" (or `python -m job_alert progress`) |

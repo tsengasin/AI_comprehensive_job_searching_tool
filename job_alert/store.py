@@ -11,6 +11,7 @@ from datetime import date
 from pathlib import Path
 
 from openpyxl import Workbook, load_workbook
+from openpyxl.worksheet.datavalidation import DataValidation
 
 from .config import DATA_DIR
 
@@ -95,7 +96,23 @@ def append_to_tracker(rows: list[dict], path: Path = TRACKER_FILE) -> None:
         ws.append(TRACKER_COLUMNS)
     for row in rows:
         ws.append([row.get(col, "") for col in TRACKER_COLUMNS])
+    _add_status_dropdown(ws)
     wb.save(path)
+
+
+STATUS_CHOICES = "New,Applied,Interview,Offer,Rejected,No reply,Not applying"
+
+
+def _add_status_dropdown(ws) -> None:
+    """Let the user pick a Status from a list, so the progress report can count it."""
+    col = TRACKER_COLUMNS.index("Status") + 1
+    letter = ws.cell(row=1, column=col).column_letter
+    ref = f"{letter}2:{letter}5000"
+    if any(str(dv.sqref) == ref for dv in ws.data_validations.dataValidation):
+        return
+    dv = DataValidation(type="list", formula1=f'"{STATUS_CHOICES}"', allow_blank=True)
+    dv.add(ref)
+    ws.add_data_validation(dv)
 
 
 def read_tracker(path: Path = TRACKER_FILE) -> list[dict]:

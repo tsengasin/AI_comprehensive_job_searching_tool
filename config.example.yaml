@@ -26,6 +26,9 @@ profile:
 notify:
   channels: [telegram]   # or [terminal] to just print the digest
 
+reports:
+  progress_day: monday   # weekly progress report day (sent with that day's digest); "never" to turn off
+
 storage:
   keep_raw_days: 3       # raw API results older than this are deleted
 

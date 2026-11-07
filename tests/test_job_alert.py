@@ -151,3 +151,38 @@ def test_claude_skills_copy_matches_agents_skills():
     src, dst = ROOT / ".agents" / "skills", ROOT / ".claude" / "skills"
     files = lambda d: {p.relative_to(d): p.read_bytes() for p in d.rglob("*") if p.is_file()}
     assert files(src) == files(dst), "Run: python scripts/sync_skills.py"
+
+
+# --- progress report --------------------------------------------------------
+
+from datetime import date as _date
+
+from job_alert import progress
+
+
+def test_progress_loop(tmp_path, monkeypatch):
+    monkeypatch.setattr(progress, "HISTORY_FILE", tmp_path / "h.json")
+    monkeypatch.setattr(progress, "MY_DATA_DIR", tmp_path)
+    monkeypatch.setattr(store, "DATA_DIR", tmp_path)
+    cfg = Config(queries=["q"], location="x")
+    rows = [{"Job ID": f"j{i}", "Date Found": "2026-10-20", "Fit %": 88, "ATS %": 70 + i,
+             "Status": "New", "Missing ATS Terms": "braze, sql*", "Gap Flags": "B3: Braze"} for i in range(6)]
+    progress.update_history(rows, _date(2026, 10, 20))
+    for r in rows:
+        r["Status"] = "Applied"
+    rows[0]["Status"] = "Interview"
+    history = progress.update_history(rows, _date(2026, 10, 27))
+    assert history["j0"] == {"new": "2026-10-20", "interview": "2026-10-27"}
+    assert history["j1"]["applied"] == "2026-10-27"
+
+    weeks = progress.build_weeks(rows, history, cfg, today=_date(2026, 11, 7))
+    s = progress.summarise(weeks, rows, history, cfg)
+    assert s["applied_recent"] == 6 and s["interviews_recent"] == 1
+    assert round(s["rate_recent"]) == 17 and s["focus_terms"][0] == ("braze", 6)
+    html_out = progress.render_html(weeks, s, cfg)
+    assert "17%" in html_out and "<svg" in html_out
+    assert "Interview rate: 17%" in progress.text_summary(s, cfg)
+
+
+def test_nice_axis_max():
+    assert progress._nice_max(3.6) == 4 and progress._nice_max(7) == 10 and progress._nice_max(45) == 100

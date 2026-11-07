@@ -48,8 +48,8 @@
 <text x='540' y='652' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='34' font-weight='800' fill='#14213d'>Free</text>
 <text x='540' y='692' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='34' font-weight='800' fill='#14213d'>Private</text>
 <text x='540' y='732' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='34' font-weight='800' fill='#14213d'>Open source</text>
-<text x='540' y='780' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#4a5568'>Steps 4–6 repeat</text>
-<text x='540' y='805' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#4a5568'>with weekly insights</text>
+<text x='540' y='780' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#4a5568'>Steps 4–6 repeat with</text>
+<text x='540' y='805' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='19' font-weight='500' fill='#4a5568'>a weekly progress report</text>
 <rect x='48.0' y='1190' width='316' height='52' rx='26' fill='#ffffff' stroke='#cbd5e1' stroke-width='2'/>
 <text x='206' y='1224' text-anchor='middle' font-family='Inter, DejaVu Sans, sans-serif' font-size='21' font-weight='600' fill='#1d3557'>ChatGPT · Codex · Claude</text>
 <rect x='382.0' y='1190' width='316' height='52' rx='26' fill='#ffffff' stroke='#cbd5e1' stroke-width='2'/>

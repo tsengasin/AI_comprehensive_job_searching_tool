@@ -52,6 +52,7 @@ class Config:
     cv_file: str = "my-data/master-cv.md"
     profile_file: str = "my-data/skill-profile.md"
     engine: EngineConfig = field(default_factory=EngineConfig)
+    progress_day: str = "monday"        # weekday the progress report is sent ("never" to turn off)
 
 
 def load_config(path: Path | None = None) -> Config:
@@ -89,6 +90,7 @@ def load_config(path: Path | None = None) -> Config:
         cv_file=str(profile.get("cv_file", "my-data/master-cv.md")),
         profile_file=str(profile.get("skill_profile_file", "my-data/skill-profile.md")),
         engine=_engine(raw.get("engine", {})),
+        progress_day=str(raw.get("reports", {}).get("progress_day", "monday")).lower(),
     )
 
 

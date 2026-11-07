@@ -4,6 +4,7 @@
     python -m job_alert fetch            # only fetch + de-duplicate new jobs
     python -m job_alert score            # score the latest fetched jobs and notify
     python -m job_alert insights         # weekly market and CV insights
+    python -m job_alert progress         # your progress report (data/progress-report.html)
     python -m job_alert test-telegram    # check your Telegram setup
     python -m job_alert doctor           # check config, files and keys (never prints keys)
 """
@@ -16,7 +17,7 @@ import sys
 from collections import Counter
 from datetime import date, datetime, timedelta
 
-from . import notify, scoring, store
+from . import notify, progress, scoring, store
 from .config import DATA_DIR, ROOT, ConfigError, load_config
 from .http import SourceError
 from .redact import redact
@@ -96,6 +97,7 @@ def cmd_score(config) -> None:
             })
     store.append_to_tracker(rows)
     store.save_state(state)
+    progress.update_history(store.read_tracker())  # note any Status changes you made
     INBOX.write_text("[]", encoding="utf-8")
 
     alerts = [j for j in scored if j["verdict"] in ("apply", "tailor_first")]
@@ -142,6 +144,18 @@ def cmd_insights(config, days: int = 7) -> None:
     notify.send(text, config.notify)
 
 
+def cmd_progress(config, send: bool = True) -> None:
+    summary, _ = progress.generate(config)
+    print(summary)
+    print(f"Report saved to {progress.REPORT_FILE.relative_to(ROOT)} (open it in your browser).")
+    if send and "telegram" in config.notify and notify.telegram_configured():
+        notify.send_telegram(summary)
+
+
+def progress_day_today(config) -> bool:
+    return config.progress_day == date.today().strftime("%A").lower()
+
+
 def cmd_doctor(config) -> None:
     import os
     checks = [
@@ -169,7 +183,7 @@ def cmd_doctor(config) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="job_alert", description="Daily AI job-match alert")
-    parser.add_argument("command", choices=["run", "fetch", "score", "insights", "test-telegram", "doctor"])
+    parser.add_argument("command", choices=["run", "fetch", "score", "insights", "progress", "test-telegram", "doctor"])
     parser.add_argument("--days", type=int, default=7, help="look-back window for insights")
     args = parser.parse_args(argv)
 
@@ -186,9 +200,13 @@ def main(argv: list[str] | None = None) -> int:
             cmd_score(config)
         elif args.command == "insights":
             cmd_insights(config, args.days)
+        elif args.command == "progress":
+            cmd_progress(config)
         elif args.command == "run":
             cmd_fetch(config)
             cmd_score(config)
+            if progress_day_today(config):
+                cmd_progress(config)
         return 0
     except (ConfigError, SourceError, scoring.ScoringError) as exc:
         message = f"Job search FAILED today: {redact(exc)}"

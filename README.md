@@ -20,6 +20,19 @@ OpenAI-compatible model. Runs on your own computer. No server, no sign-up, no da
 | + | **skill-profile-builder** | "What are my real strengths and gaps?" | An honest Tier 1/2/3 skill profile, level check and personal factors. This is what makes the scores trustworthy |
 | + | **job-search-setup** | "Help me set up" | A step-by-step guided setup |
 
+## A job search that improves itself
+
+Most job searches feel like sending applications into a void. This toolkit runs a loop:
+**find → act → record → measure → improve**. Every job you see, every application and every
+reply feeds the next week: the CV terms you are missing, the skills that keep capping your fit,
+and whether your changes worked.
+
+Every week you get a **progress report**: interview rate, applications, how well your CV wording
+now matches job language, the effort you put in, and one clear focus for next week. So even in a
+slow week you can see what is improving and what to work on. → [How the loop works](docs/07-progress-loop.md)
+
+<p align="center"><img src="docs/images/progress-report-example.png" alt="Example weekly progress report with sample data: interview rate, applications per week, CV wording trend and next week's focus" width="720"></p>
+
 ## Why two scores?
 
 Recruiters say your CV should match **80–85%** of a job ad. That is about **wording**: will
@@ -75,6 +88,7 @@ and/or SerpApi and a Telegram bot ([how](docs/02-api-keys.md)).
 ```bash
 python -m job_alert run        # daily pipeline
 python -m job_alert insights   # weekly: missing CV terms, recurring gaps, strengths in demand
+python -m job_alert progress   # your progress report: interview rate, CV wording, effort, focus
 python -m job_alert doctor     # check setup without showing keys
 ```
 
