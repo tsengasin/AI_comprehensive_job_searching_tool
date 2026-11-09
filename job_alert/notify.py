@@ -65,7 +65,8 @@ def send_telegram(text: str) -> None:
 TELEGRAM_HINTS = [
     ("bots can't send messages to bots",
      "TELEGRAM_CHAT_ID is your bot's own id (the number before ':' in the token). "
-     "Use YOUR chat id instead: run `python -m job_alert telegram-chat-id`."),
+     "Use YOUR chat id instead: message @userinfobot in Telegram, or run "
+     "`python -m job_alert telegram-chat-id` (docs/02-api-keys.md, Step 3)."),
     ("can't initiate conversation",
      "Telegram only lets a bot message you after you message it first. Open your bot in "
      "Telegram, press Start (or send 'hi'), then try again."),
@@ -74,8 +75,8 @@ TELEGRAM_HINTS = [
     ("not a member", "The bot is not in that group or channel. Add the bot to it first."),
     ("kicked", "The bot was removed from that group. Add it back, then try again."),
     ("chat not found",
-     "Telegram doesn't know that chat id. Send your bot a message, then run "
-     "`python -m job_alert telegram-chat-id` to get the right one."),
+     "Telegram doesn't know that chat id. Send your bot a message, then get your id from "
+     "@userinfobot or `python -m job_alert telegram-chat-id` (docs/02-api-keys.md, Step 3)."),
     ("unauthorized", "TELEGRAM_BOT_TOKEN is wrong or was revoked. Copy it again from @BotFather."),
     ("not found", "TELEGRAM_BOT_TOKEN looks malformed. It should look like 123456789:AAE...xyz"),
 ]
