@@ -8,20 +8,72 @@ them, and there is no server in between.
 - If a key ever leaks, regenerate it on the provider's site (the old one stops working).
 - You only need **one** job source to start. Remove the other from `config.yaml` → `sources`.
 
+**Use only the official sites linked below.** Ignore search ads, "free key generator" sites or
+anyone offering to share a key: a key from anywhere else may be stolen, may stop working, or may
+break the provider's terms.
+
+**Opening `.env`:** it is a plain text file in the toolkit folder (copy `.env.example` to `.env`
+first). Open it with Notepad (Windows) or TextEdit (Mac: *Format → Make Plain Text*). Files whose
+names start with a dot are hidden: on Mac press `Cmd + Shift + .` in Finder; on Windows tick
+*View → Hidden items*. Write each value right after the `=`, with no spaces and no quotes.
+
 ## Jooble (job search API)
 
-1. Go to <https://jooble.org/api/about> and request an API key with your email.
-2. You receive the key by email.
-3. In `.env`: `JOOBLE_APP_KEY=your-key-here`
+Jooble is a job search engine with a free API for job seekers' tools. The key arrives by email.
+
+1. Open the official page: **<https://jooble.org/api/about>**
+2. Fill in the request form (your name, email and a short description such as "personal job
+   search alerts") and submit it.
+3. Check your inbox (and the spam/promotions folder) for an email from Jooble containing your
+   **API key**, a long string of letters, numbers and dashes. It can take a few minutes.
+4. Paste it into `.env`:
+
+```
+JOOBLE_APP_KEY=your-key-from-the-email
+```
+
+5. Check it (prints only OK or MISSING, never the key):
+
+```bash
+python -m job_alert doctor
+```
 
 ## SerpApi (Google Jobs results)
 
-1. Sign up at <https://serpapi.com> (the free plan has a monthly search quota).
-2. Copy your key from <https://serpapi.com/manage-api-key>.
-3. In `.env`: `SERPAPI_KEY=your-key-here`
+SerpApi returns Google Jobs results through an API. The free plan includes **250 searches a
+month** (no credit card needed at the time of writing; check <https://serpapi.com/pricing> for
+the current plans).
 
-Each query in `config.yaml` uses one search per day. 5 queries × 30 days = 150 searches a month,
-so check your plan's quota and keep the query list short.
+1. Open the official site: **<https://serpapi.com>** and click **Register** (top right). Sign up
+   with your email, Google or GitHub account.
+2. Confirm your email address from the email SerpApi sends you. SerpApi may also ask you to
+   verify your phone number before the account is activated.
+3. If asked to choose a plan, pick **Free**.
+4. Open your key page: **<https://serpapi.com/manage-api-key>** (or click your account →
+   **Api Key**) and copy the **Private API Key**.
+5. Paste it into `.env`:
+
+```
+SERPAPI_KEY=your-private-api-key
+```
+
+6. Check it:
+
+```bash
+python -m job_alert doctor
+```
+
+**Stay inside the free quota:** each search query in `config.yaml` uses **one search per day**
+(the toolkit never repeats a query on the same day, even if you run it twice).
+
+| Queries in `config.yaml` | Searches per month | Free plan (250) |
+|---|---|---|
+| 3 | about 90 | ✅ |
+| 5 | about 150 | ✅ |
+| 8 | about 240 | ⚠️ just fits |
+| 10 | about 300 | ❌ over: you will see `HTTP 429` near the end of the month |
+
+You can see how many searches you have used on your SerpApi dashboard.
 
 ## Telegram (daily digest on your phone)
 
