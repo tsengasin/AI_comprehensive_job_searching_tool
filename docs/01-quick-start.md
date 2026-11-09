@@ -38,6 +38,9 @@ pip install -r requirements.txt
 
 ## Step 3: Your CV
 
+> **Want to test first?** Use the fictional demo CV and job ads in
+> [`examples/demo-persona/`](../examples/demo-persona/README.md) (10-minute test drive).
+
 Put your CV in `my-data/` as `master-cv.md` (or `master-cv.docx`). No CV yet? Ask your AI
 in the folder: *"Use cv-builder to build my master CV from scratch."*
 

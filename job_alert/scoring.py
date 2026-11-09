@@ -15,6 +15,7 @@ Security design (see SECURITY.md):
 
 from __future__ import annotations
 
+import html
 import json
 import re
 import shutil
@@ -58,7 +59,7 @@ def cv_text(path: Path) -> str:
         with zipfile.ZipFile(path) as z:
             xml = z.read("word/document.xml").decode("utf-8", "ignore")
         xml = re.sub(r"</w:p>", "\n", xml)
-        return re.sub(r"<[^>]+>", "", xml)
+        return html.unescape(re.sub(r"<[^>]+>", "", xml))
     return path.read_text(encoding="utf-8")
 
 

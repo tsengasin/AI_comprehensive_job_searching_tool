@@ -100,7 +100,7 @@ python -m job_alert doctor     # check setup without showing keys
 | `job_alert/` | Daily alert pipeline (Python) |
 | `docs/` | Quick start, keys, scheduling, scoring method |
 | `templates/` | Skill profile, CV and mock-interview log templates |
-| `examples/demo-persona/` | A fictional job seeker's CV, profile and sample scoring |
+| `examples/demo-persona/` | A fictional job seeker's CV (.md and .docx), skill profile and two sample job ads: [10-minute test drive](examples/demo-persona/README.md) |
 | `my-data/` | **Your** private files (git-ignored) |
 
 ## Contributing

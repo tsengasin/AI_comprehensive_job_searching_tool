@@ -186,3 +186,8 @@ def test_progress_loop(tmp_path, monkeypatch):
 
 def test_nice_axis_max():
     assert progress._nice_max(3.6) == 4 and progress._nice_max(7) == 10 and progress._nice_max(45) == 100
+
+
+def test_docx_cv_is_read_as_plain_text():
+    text = scoring.cv_text(ROOT / "examples" / "demo-persona" / "master-cv.docx")
+    assert "CRM & Lifecycle" in text and "&amp;" not in text and "<w:" not in text
