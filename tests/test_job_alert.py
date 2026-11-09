@@ -191,3 +191,58 @@ def test_nice_axis_max():
 def test_docx_cv_is_read_as_plain_text():
     text = scoring.cv_text(ROOT / "examples" / "demo-persona" / "master-cv.docx")
     assert "CRM & Lifecycle" in text and "&amp;" not in text and "<w:" not in text
+
+
+# --- Telegram troubleshooting -------------------------------------------------
+
+class _FakeResponse:
+    def __init__(self, status, body):
+        self.status_code, self._body = status, body
+
+    def json(self):
+        return self._body
+
+    def raise_for_status(self):
+        import requests
+        if self.status_code >= 400:
+            raise requests.HTTPError(response=self)
+
+
+def test_api_error_reason_is_shown_but_url_is_not(monkeypatch):
+    import requests
+    from job_alert.http import SourceError, request_json
+    body = {"ok": False, "error_code": 403, "description": "Forbidden: bot can't initiate conversation with a user"}
+    monkeypatch.setattr(requests, "request", lambda *a, **k: _FakeResponse(403, body))
+    with pytest.raises(SourceError) as err:
+        request_json("POST", "https://api.telegram.org/bot123:SECRETTOKEN/sendMessage")
+    msg = str(err.value)
+    assert "can't initiate conversation" in msg and "SECRETTOKEN" not in msg
+    assert "press Start" in notify.telegram_hint(msg)
+
+
+def test_non_telegram_403_points_to_network():
+    assert "network" in notify.telegram_hint("HTTP 403 from api.telegram.org")
+
+
+@pytest.mark.parametrize("token,chat_id,expected", [
+    ("123456:ABCdef", "123456", "bot's own id"),
+    ("123456:ABCdef", '"987654"', "quotes"),
+    ("123456:ABCdef", "987 654", "only digits"),
+    ("123456:ABCdef", "987654", None),
+    ("123456:ABCdef", "-1001234567890", None),
+])
+def test_telegram_setup_checks(monkeypatch, token, chat_id, expected):
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", token)
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", chat_id)
+    problems = " ".join(notify.check_telegram_setup())
+    assert (expected in problems) if expected else problems == ""
+
+
+def test_find_chat_ids(monkeypatch):
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "123456:ABCdef")
+    updates = {"ok": True, "result": [
+        {"message": {"chat": {"id": 555, "first_name": "Alex", "type": "private"}}},
+        {"message": {"chat": {"id": -100777, "title": "Job alerts", "type": "supergroup"}}},
+    ]}
+    monkeypatch.setattr(notify, "request_json", lambda *a, **k: updates)
+    assert notify.find_chat_ids() == [("555", "Alex (private)"), ("-100777", "Job alerts (supergroup)")]

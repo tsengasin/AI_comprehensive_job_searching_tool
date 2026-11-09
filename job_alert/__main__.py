@@ -6,6 +6,7 @@
     python -m job_alert insights         # weekly market and CV insights
     python -m job_alert progress         # your progress report (data/progress-report.html)
     python -m job_alert test-telegram    # check your Telegram setup
+    python -m job_alert telegram-chat-id # find your Telegram chat id (message your bot first)
     python -m job_alert doctor           # check config, files and keys (never prints keys)
 """
 
@@ -156,6 +157,40 @@ def progress_day_today(config) -> bool:
     return config.progress_day == date.today().strftime("%A").lower()
 
 
+def cmd_test_telegram() -> None:
+    problems = notify.check_telegram_setup()
+    if problems:
+        print("Telegram setup problem(s) found in .env:")
+        for p in problems:
+            print(f"  - {p}")
+        sys.exit(1)
+    try:
+        notify.send_telegram("✅ Your job alert bot is connected.")
+    except SourceError as exc:
+        print(f"Telegram refused the message: {exc}")
+        print(f"What to do: {notify.telegram_hint(str(exc))}")
+        sys.exit(1)
+    print("Sent a test message. Check Telegram.")
+
+
+def cmd_telegram_chat_id() -> None:
+    try:
+        chats = notify.find_chat_ids()
+    except SourceError as exc:
+        print(f"Could not read your bot's messages: {exc}")
+        if "409" in str(exc):
+            print("Your bot has a webhook set. Remove it (open the bot's deleteWebhook URL), then retry.")
+        else:
+            print(f"What to do: {notify.telegram_hint(str(exc))}")
+        sys.exit(1)
+    if not chats:
+        print("No messages found. Open your bot in Telegram, press Start or send 'hi', then run this again.")
+        return
+    print("Chats that messaged your bot (put the right number in .env as TELEGRAM_CHAT_ID):")
+    for chat_id, label in chats:
+        print(f"  {chat_id}   {label}")
+
+
 def cmd_doctor(config) -> None:
     import os
     checks = [
@@ -183,17 +218,26 @@ def cmd_doctor(config) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="job_alert", description="Daily AI job-match alert")
-    parser.add_argument("command", choices=["run", "fetch", "score", "insights", "progress", "test-telegram", "doctor"])
+    parser.add_argument("command", choices=["run", "fetch", "score", "insights", "progress", "test-telegram",
+                                            "telegram-chat-id", "doctor"])
     parser.add_argument("--days", type=int, default=7, help="look-back window for insights")
     args = parser.parse_args(argv)
+
+    if args.command in ("test-telegram", "telegram-chat-id"):
+        # Only .env is needed for these, not config.yaml.
+        from dotenv import load_dotenv
+        load_dotenv(ROOT / ".env")
+        try:
+            cmd_test_telegram() if args.command == "test-telegram" else cmd_telegram_chat_id()
+        except ConfigError as exc:
+            print(exc, file=sys.stderr)
+            return 1
+        return 0
 
     try:
         config = load_config()
         if args.command == "doctor":
             cmd_doctor(config)
-        elif args.command == "test-telegram":
-            notify.send_telegram("✅ Your job alert bot is connected.")
-            print("Sent a test message. Check Telegram.")
         elif args.command == "fetch":
             cmd_fetch(config)
         elif args.command == "score":

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 
 from .config import require_env
 from .http import request_json
@@ -58,6 +59,73 @@ def send_telegram(text: str) -> None:
             f"https://api.telegram.org/bot{token}/sendMessage",
             json={"chat_id": chat_id, "text": part, "disable_web_page_preview": True},
         )
+
+
+# Telegram's error text -> what to do about it.
+TELEGRAM_HINTS = [
+    ("bots can't send messages to bots",
+     "TELEGRAM_CHAT_ID is your bot's own id (the number before ':' in the token). "
+     "Use YOUR chat id instead: run `python -m job_alert telegram-chat-id`."),
+    ("can't initiate conversation",
+     "Telegram only lets a bot message you after you message it first. Open your bot in "
+     "Telegram, press Start (or send 'hi'), then try again."),
+    ("blocked by the user",
+     "You blocked the bot. In Telegram open the bot, tap Restart/Unblock, send 'hi', then try again."),
+    ("not a member", "The bot is not in that group or channel. Add the bot to it first."),
+    ("kicked", "The bot was removed from that group. Add it back, then try again."),
+    ("chat not found",
+     "Telegram doesn't know that chat id. Send your bot a message, then run "
+     "`python -m job_alert telegram-chat-id` to get the right one."),
+    ("unauthorized", "TELEGRAM_BOT_TOKEN is wrong or was revoked. Copy it again from @BotFather."),
+    ("not found", "TELEGRAM_BOT_TOKEN looks malformed. It should look like 123456789:AAE...xyz"),
+]
+
+_CHAT_ID_FORMAT = re.compile(r"^(-?\d+|@[A-Za-z0-9_]{5,})$")
+
+
+def telegram_hint(error: str) -> str:
+    low = error.lower()
+    for needle, hint in TELEGRAM_HINTS:
+        if needle in low:
+            return hint
+    if "api.telegram.org:" not in low:
+        # No explanation from Telegram itself: something between you and Telegram refused it.
+        return ("The refusal did not come from Telegram. A work/school network, firewall, proxy or VPN "
+                "may be blocking api.telegram.org. Try another network or turn the VPN off/on.")
+    return "Check TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in .env (see docs/02-api-keys.md)."
+
+
+def check_telegram_setup() -> list[str]:
+    """Problems we can spot without calling Telegram. Never returns the values themselves."""
+    problems = []
+    token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    if not token or not chat_id:
+        return ["TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must both be set in .env."]
+    if chat_id != chat_id.strip("'\""):
+        problems.append("Remove the quotes around TELEGRAM_CHAT_ID in .env.")
+    elif not _CHAT_ID_FORMAT.match(chat_id):
+        problems.append("TELEGRAM_CHAT_ID should be only digits (groups start with '-'), "
+                        "with no spaces or other text.")
+    if ":" in token and chat_id.lstrip("-") == token.split(":", 1)[0]:
+        problems.append(TELEGRAM_HINTS[0][1])
+    if ":" not in token:
+        problems.append(TELEGRAM_HINTS[-1][1])
+    return problems
+
+
+def find_chat_ids() -> list[tuple[str, str]]:
+    """Chats that have messaged the bot recently: [(chat_id, label)]."""
+    token = require_env("TELEGRAM_BOT_TOKEN")
+    data = request_json("GET", f"https://api.telegram.org/bot{token}/getUpdates")
+    chats = {}
+    for update in data.get("result", []):
+        message = update.get("message") or update.get("channel_post") or update.get("my_chat_member") or {}
+        chat = message.get("chat") or {}
+        if "id" in chat:
+            label = chat.get("title") or " ".join(filter(None, [chat.get("first_name"), chat.get("last_name")]))
+            chats[str(chat["id"])] = f"{label or 'unknown'} ({chat.get('type', '?')})"
+    return list(chats.items())
 
 
 def send(text: str, channels: list[str]) -> None:

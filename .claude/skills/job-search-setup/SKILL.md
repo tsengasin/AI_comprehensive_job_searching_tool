@@ -36,7 +36,8 @@ each step worked before moving on, and explain in plain language. Reply in the u
    from step 1. Explain the two bars:
    `alert_min_fit` (personal fit, default 85) and `ats_target` (CV wording, default 80).
 6. **Keys.** Copy `.env.example` to `.env`. Walk them through docs/02-api-keys.md for Jooble,
-   SerpApi and Telegram. They paste values into `.env` themselves.
+   SerpApi and Telegram (they must press **Start** in their bot, then `python -m job_alert telegram-chat-id`
+   shows their chat id). They paste values into `.env` themselves.
    Then run `python -m job_alert doctor` and `python -m job_alert test-telegram`.
 7. **First run.** `python -m job_alert run`. Explain the output and open `data/jobs.xlsx`.
    If almost everything scores 85+, revisit the skill profile: it is probably too generous.
@@ -57,3 +58,4 @@ each step worked before moving on, and explain in plain language. Reply in the u
 | `Could not find 'codex'` (or `claude`) | Set `engine.command` to the full path (`which codex`; Windows: `where codex`) |
 | `LLM_API_KEY is not set` | engine `api` needs a key in `.env`; see docs/05-choose-your-ai.md |
 | `AI API error: HTTP 401` | API key wrong or out of credit |
+| `HTTP 403 from api.telegram.org` | Run `python -m job_alert test-telegram`: it names the cause. Most often the user never pressed **Start** in the bot, or used the bot's own id as the chat id. `python -m job_alert telegram-chat-id` finds the right id |
