@@ -63,3 +63,11 @@ no information only in headers/footers, dates in a consistent format, file as .d
 
 To export a Word file: `pandoc my-data/tailored/<file>.md -o my-data/tailored/<file>.docx`
 (if pandoc is installed).
+
+## When you finish
+
+Always end with one next step and an offer:
+- Master CV built → "Next: let's build your skill profile (10 minutes) so job scores are honest."
+- Tailored CV → "Next: apply today, then set this job's Status to Applied in `data/jobs.xlsx`
+  (I can update it for you). Want a short cover letter, or interview prep for this role?"
+- Review → "Want me to apply these fixes to your master CV now?"

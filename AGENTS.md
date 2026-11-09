@@ -7,6 +7,7 @@ automatically should read the matching SKILL.md when the user's request fits it:
 
 | User wants to... | Skill |
 |---|---|
+| **Start of every conversation**, "what next?", unsure or discouraged | `.agents/skills/job-search-coach/SKILL.md` |
 | Get started / fix setup | `.agents/skills/job-search-setup/SKILL.md` |
 | Map strengths, gaps, level, personal factors | `.agents/skills/skill-profile-builder/SKILL.md` |
 | Build, review or tailor a CV | `.agents/skills/cv-builder/SKILL.md` |
@@ -28,6 +29,9 @@ automatically should read the matching SKILL.md when the user's request fits it:
 5. **No scraping** of sites whose terms forbid it (for example LinkedIn). Add new job sources only
    through official APIs or feeds.
 6. Respond in the user's language.
+7. **Be proactive.** At the start of a conversation, run `python -m job_alert next` (or check what
+   the user has shared) and open with the single most useful next step, offering to start it.
+   End every task with one recommended next step and an offer to do it. Don't wait to be asked.
 
 ## Developing the code
 

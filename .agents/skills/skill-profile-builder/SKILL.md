@@ -45,3 +45,8 @@ See `examples/demo-persona/skill-profile.md` for a finished example.
 - Keep sensitive personal factors minimal and phrased neutrally (e.g. "Needs visa sponsorship
   outside Hong Kong"). The file is private, but it may later be shared with a mentor or career coach.
 - Update the profile whenever the user learns something new or a job score feels wrong.
+
+## When you finish
+
+Recommend the next step and offer to start it: "Next, let's test it on a real job: paste one you
+like and I'll score it." If the daily alert isn't set up yet, offer `job-search-setup`.

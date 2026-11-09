@@ -59,3 +59,8 @@ each step worked before moving on, and explain in plain language. Reply in the u
 | `LLM_API_KEY is not set` | engine `api` needs a key in `.env`; see docs/05-choose-your-ai.md |
 | `AI API error: HTTP 401` | API key wrong or out of credit |
 | `HTTP 403 from api.telegram.org` | Run `python -m job_alert test-telegram`: it names the cause. Most often the user never pressed **Start** in the bot, or used the bot's own id as the chat id. `python -m job_alert telegram-chat-id` finds the right id |
+
+## When setup is done
+
+Don't stop at "setup complete". Run `python -m job_alert next` and walk the user into the first
+real action (usually: look at today's matches together, or tailor the CV for the best 🟡 job).

@@ -70,3 +70,10 @@ with 2 questions targeting the weakest areas before moving on.
 
 Offer a debrief: what was asked, what went well, what to improve, a thank-you note draft, and
 updates to the story bank for the next round.
+
+## Keep them moving
+
+- End every session by booking the next one: name the weakest area and propose a short drill
+  ("3 questions on results and metrics, tomorrow?"), counting back from the interview date.
+- After the interview, offer the debrief first, then remind them to set the job's Status in
+  `data/jobs.xlsx` (Interview, Offer or Rejected) so the progress report stays accurate.

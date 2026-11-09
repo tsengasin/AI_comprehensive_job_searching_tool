@@ -22,7 +22,10 @@ anything. Reply in the user's language.
    - Caps triggered (B1–B4) with one line each
    - Matched skills; missing ATS terms (`*` = you have it, the CV just does not say it)
    - Recommendation: apply / tailor then apply / apply with eyes open / skip, in 2–3 sentences
-4. For 🟡, offer `cv-builder` tailor mode. For 🟢, offer `interview-coach`.
+4. Always end with the next step and offer to start it: 🟢 → "Apply today, then mark it Applied;
+   want me to prepare interview notes?" · 🟡 → "Shall I tailor your CV for it now?" ·
+   🟠 → "Apply only with a story for the gaps; want help with that?" · ⚪ → "Want me to find
+   similar roles that fit better?"
 
 ## Mode B: The daily automated alert
 

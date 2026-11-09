@@ -19,6 +19,7 @@ OpenAI-compatible model. Runs on your own computer. No server, no sign-up, no da
 | 3 | **job-match-alert** | "Should I apply to this?" (or runs daily) | Two scores per job, **Fit %** and **ATS Match %**, a Telegram digest of jobs that clear your bar, a spreadsheet tracker, and weekly insights |
 | + | **skill-profile-builder** | "What are my real strengths and gaps?" | An honest Tier 1/2/3 skill profile, level check and personal factors. This is what makes the scores trustworthy |
 | + | **job-search-setup** | "Help me set up" | A step-by-step guided setup |
+| + | **job-search-coach** | "Hi" / "What should I do next?" | Checks where you are and leads: apply to this, tailor that, prepare for this interview, follow up on that |
 
 ## A job search that improves itself
 
@@ -26,6 +27,10 @@ Most job searches feel like sending applications into a void. This toolkit runs 
 **find → act → record → measure → improve**. Every job you see, every application and every
 reply feeds the next week: the CV terms you are missing, the skills that keep capping your fit,
 and whether your changes worked.
+
+You never have to ask "what now?": every daily digest ends with your **next steps** (apply to
+this, tailor your CV for that, prepare for this interview, follow up on that), and your AI coach
+opens each conversation with the most useful thing to do today.
 
 Every week you get a **progress report**: interview rate, applications, how well your CV wording
 now matches job language, the effort you put in, and one clear focus for next week. So even in a
@@ -89,6 +94,7 @@ and/or SerpApi and a Telegram bot ([how](docs/02-api-keys.md)).
 python -m job_alert run        # daily pipeline
 python -m job_alert insights   # weekly: missing CV terms, recurring gaps, strengths in demand
 python -m job_alert progress   # your progress report: interview rate, CV wording, effort, focus
+python -m job_alert next       # what to do next, right now (also at the end of every daily digest)
 python -m job_alert doctor     # check setup without showing keys
 ```
 

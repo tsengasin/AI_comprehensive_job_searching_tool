@@ -246,3 +246,52 @@ def test_find_chat_ids(monkeypatch):
     ]}
     monkeypatch.setattr(notify, "request_json", lambda *a, **k: updates)
     assert notify.find_chat_ids() == [("555", "Alex (private)"), ("-100777", "Job alerts (supergroup)")]
+
+
+# --- proactive next steps ------------------------------------------------------
+
+from job_alert import nextsteps
+
+
+def test_next_steps_before_setup():
+    actions = nextsteps.next_actions(None, [], {})
+    assert actions[0].say == "Help me set up the job search tool."
+
+
+def test_next_steps_prioritise_interviews_then_apply_then_tailor(tmp_path, monkeypatch):
+    monkeypatch.setattr(nextsteps, "MY_DATA_DIR", tmp_path)
+    monkeypatch.setattr(nextsteps, "setup_actions", lambda config: [])
+    today = _date(2026, 11, 9)
+    cfg = Config(queries=["q"], location="x")
+    rows = [
+        {"Date Found": "2026-11-08", "Verdict": "tailor_first", "Fit %": 87, "ATS %": 60, "Job Title": "Lead",
+         "Company": "Bloomly", "Job ID": "b", "Status": "New", "Missing ATS Terms": "retention*, rfm*"},
+        {"Date Found": "2026-11-08", "Verdict": "apply", "Fit %": 90, "ATS %": 85, "Job Title": "CRM Manager",
+         "Company": "Lumiere", "Job URL": "https://ex/1", "Job ID": "a", "Status": "New",
+         "Missing ATS Terms": "retention*, rfm*"},
+        {"Date Found": "2026-10-01", "Verdict": "apply", "Fit %": 86, "ATS %": 80, "Job Title": "Analyst",
+         "Company": "OldCo", "Job ID": "e", "Status": "Applied"},
+        {"Date Found": "2026-11-01", "Verdict": "apply", "Fit %": 88, "ATS %": 82, "Job Title": "Specialist",
+         "Company": "Acme", "Job ID": "c", "Status": "Interview"},
+        {"Date Found": "2026-09-01", "Verdict": "apply", "Fit %": 95, "ATS %": 90, "Job Title": "Old match",
+         "Company": "Stale", "Job ID": "s", "Status": "New"},
+    ]
+    history = {"e": {"applied": "2026-10-10"}}
+    titles = [a.title for a in nextsteps.next_actions(cfg, rows, history, today, limit=10)]
+    assert titles[0].startswith("Prepare for your interview") and "Acme" in titles[0]
+    assert titles[1] == "Apply: CRM Manager @ Lumiere"
+    assert titles[2].startswith("Tailor your CV") and "Bloomly" in titles[2]
+    assert any(t.startswith("Follow up on 1") for t in titles)
+    assert any(t.startswith("Add to your master CV") for t in titles)
+    assert not any("Stale" in t for t in titles)  # too old to chase
+
+    (tmp_path / "interview-prep" / "acme-specialist").mkdir(parents=True)
+    titles = [a.title for a in nextsteps.next_actions(cfg, rows, history, today, limit=10)]
+    assert titles[0] == "Do one mock interview round for Acme"
+
+
+def test_next_steps_fallback_is_small_and_doable(monkeypatch):
+    monkeypatch.setattr(nextsteps, "setup_actions", lambda config: [])
+    monkeypatch.setattr(nextsteps, "profile_action", lambda config: [])
+    actions = nextsteps.next_actions(Config(queries=["q"], location="x"), [], {})
+    assert "interview question" in actions[0].title.lower()

@@ -5,6 +5,7 @@
     python -m job_alert score            # score the latest fetched jobs and notify
     python -m job_alert insights         # weekly market and CV insights
     python -m job_alert progress         # your progress report (data/progress-report.html)
+    python -m job_alert next             # what to do next, right now
     python -m job_alert test-telegram    # check your Telegram setup
     python -m job_alert telegram-chat-id # find your Telegram chat id (message your bot first)
     python -m job_alert doctor           # check config, files and keys (never prints keys)
@@ -18,7 +19,7 @@ import sys
 from collections import Counter
 from datetime import date, datetime, timedelta
 
-from . import notify, progress, scoring, store
+from . import nextsteps, notify, progress, scoring, store
 from .config import DATA_DIR, ROOT, ConfigError, load_config
 from .http import SourceError
 from .redact import redact
@@ -98,13 +99,25 @@ def cmd_score(config) -> None:
             })
     store.append_to_tracker(rows)
     store.save_state(state)
-    progress.update_history(store.read_tracker())  # note any Status changes you made
+    tracker = store.read_tracker()
+    history = progress.update_history(tracker)  # note any Status changes you made
     INBOX.write_text("[]", encoding="utf-8")
 
     alerts = [j for j in scored if j["verdict"] in ("apply", "tailor_first")]
     counts = Counter(j["verdict"] for j in scored)
     print(f"Scored {len(scored)}: {dict(counts)}. Added {len(rows)} to data/jobs.xlsx.")
-    notify.send(notify.build_digest(alerts, t.ats_target), config.notify)
+    digest = notify.build_digest(alerts, t.ats_target)
+    steps = nextsteps.format_actions(nextsteps.next_actions(config, tracker, history))
+    notify.send(f"{digest}\n\n{steps}" if steps else digest, config.notify)
+
+
+def cmd_next(config) -> None:
+    """Print the most useful things to do now. Works even before setup is finished."""
+    tracker, history = [], {}
+    if config is not None:
+        tracker = store.read_tracker()
+        history = progress.update_history(tracker) if tracker else {}
+    print(nextsteps.format_actions(nextsteps.next_actions(config, tracker, history, limit=5)))
 
 
 def cmd_insights(config, days: int = 7) -> None:
@@ -219,7 +232,7 @@ def cmd_doctor(config) -> None:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="job_alert", description="Daily AI job-match alert")
     parser.add_argument("command", choices=["run", "fetch", "score", "insights", "progress", "test-telegram",
-                                            "telegram-chat-id", "doctor"])
+                                            "telegram-chat-id", "doctor", "next"])
     parser.add_argument("--days", type=int, default=7, help="look-back window for insights")
     args = parser.parse_args(argv)
 
@@ -232,6 +245,14 @@ def main(argv: list[str] | None = None) -> int:
         except ConfigError as exc:
             print(exc, file=sys.stderr)
             return 1
+        return 0
+
+    if args.command == "next":
+        try:
+            config = load_config()
+        except ConfigError:
+            config = None  # setup not finished: next steps will say how
+        cmd_next(config)
         return 0
 
     try:

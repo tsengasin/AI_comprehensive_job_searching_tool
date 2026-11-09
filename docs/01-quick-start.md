@@ -86,6 +86,10 @@ See [03-scheduling.md](03-scheduling.md).
 
 ## What next
 
+Not sure what to do? Run `python -m job_alert next`, or just say "What should I do next?" to
+your AI. It looks at where you are and suggests the most useful step. The daily Telegram digest
+ends with the same next steps.
+
 | Situation | Say to your AI |
 |---|---|
 | 🟡 "Tailor CV first" alert | "Tailor my CV for this job: [paste JD]" |
